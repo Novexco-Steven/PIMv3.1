@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React from 'react';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { GripVertical } from 'lucide-react';
 
 interface Page {
@@ -24,7 +24,7 @@ interface PageReorderProps {
 }
 
 export function PageReorder({ sections, onReorder }: PageReorderProps) {
-  const handleDragEnd = (result: any) => {
+  const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 
     const sectionId = result.source.droppableId;

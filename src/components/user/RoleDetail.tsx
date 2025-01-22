@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Save, Plus, Trash2, Lock } from 'lucide-react'
+import { ArrowLeft, Save, Lock } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { Role, Permission } from '../../types/user'
 
@@ -57,7 +57,7 @@ export function RoleDetail() {
 
         setRole({
           ...roleData,
-          permissions: roleData.permissions.map((p: any) => p.permission)
+          permissions: roleData.permissions.map((p: { permission: Permission }) => p.permission)
         })
       } catch (error) {
         console.error('Error fetching data:', error)

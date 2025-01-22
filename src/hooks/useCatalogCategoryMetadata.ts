@@ -10,11 +10,11 @@ interface CategoryMetadata {
 }
 
 export function useCatalogCategoryMetadata(categoryId: string) {
-  const [metadata, setMetadata] = useState<Record<string, any>>({});
-  const { optimisticData, error, updateOptimistically } =
-    useOptimisticUpdate<Record<string, any>>();
+  const [metadata, setMetadata] = useState<Record<string, CategoryMetadata>>({});
+  const { error, updateOptimistically } =
+    useOptimisticUpdate<Record<string, CategoryMetadata>>();
 
-  const setMetadataValue = async (key: string, value: any) => {
+  const setMetadataValue = async (key: string, value: CategoryMetadata) => {
     const updatedMetadata = { ...metadata, [key]: value };
 
     await updateOptimistically(

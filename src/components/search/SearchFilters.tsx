@@ -1,5 +1,4 @@
-import React from 'react'
-import { Filter, X } from 'lucide-react'
+import { Filter } from 'lucide-react'
 
 interface FilterOption {
   id: string
@@ -10,9 +9,9 @@ interface FilterOption {
 }
 
 interface SearchFiltersProps {
-  filters: Record<string, any>
+  filters: Record<string, string | number | boolean>
   filterOptions: FilterOption[]
-  onFilterChange: (filters: Record<string, any>) => void
+  onFilterChange: (filters: Record<string, string | number | boolean>) => void
   onClearFilters: () => void
 }
 
@@ -22,7 +21,7 @@ export function SearchFilters({
   onFilterChange,
   onClearFilters
 }: SearchFiltersProps) {
-  const handleFilterChange = (id: string, value: any) => {
+  const handleFilterChange = (id: string, value: string | number | boolean) => {
     onFilterChange({
       ...filters,
       [id]: value
@@ -64,7 +63,7 @@ export function SearchFilters({
               {option.type === 'select' ? (
                 <select
                   id={option.id}
-                  value={filters[option.id] || ''}
+                  value={String(filters[option.id]) || ''}
                   onChange={(e) => handleFilterChange(option.id, e.target.value)}
                   className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 >
@@ -90,7 +89,7 @@ export function SearchFilters({
                 <input
                   type="number"
                   id={option.id}
-                  value={filters[option.id] || ''}
+                  value={String(filters[option.id]) || ''}
                   onChange={(e) => handleFilterChange(option.id, e.target.value)}
                   className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
@@ -98,7 +97,7 @@ export function SearchFilters({
                 <input
                   type="text"
                   id={option.id}
-                  value={filters[option.id] || ''}
+                  value={String(filters[option.id]) || ''}
                   onChange={(e) => handleFilterChange(option.id, e.target.value)}
                   className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />

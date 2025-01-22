@@ -20,7 +20,7 @@ interface PageContent {
 
 export function useCatalogPageContent(pageId: string) {
   const [content, setContent] = useState<PageContent[]>([]);
-  const { optimisticData, error, updateOptimistically } =
+  const { error, updateOptimistically } =
     useOptimisticUpdate<PageContent[]>();
 
   const addContent = async (

@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import { useOptimisticList } from '../../hooks/useOptimisticList'
+import { useNavigate } from 'react-router-dom'
 import { useDataCache } from '../../hooks/useDataCache'
 import { supabase } from '../../lib/supabase'
+import { useSavedFilters } from '../../hooks/useSavedFilters'
+
+interface RoleWithPermissions {
+  id: string
+  name: string
+  description: string
+  is_system: boolean
+  created_at: string
+  updated_at: string
+  permissions: Permission[]
+  userCount: number
+}
+
+interface Permission {
+  id: string
+  name: string
+  description: string
+}
 
 // ... existing imports remain the same ...
 
 export function RoleList() {
-  const [searchTerm, setSearchTerm] = useState('')
   const [filters, setFilters] = useState<Record<string, any>>({})
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
@@ -48,7 +66,7 @@ export function RoleList() {
       }))
     },
     [searchTerm, filters]
-  )
+    [filters]
 
   useEffect(() => {
     if (cachedRoles) {
@@ -78,3 +96,21 @@ export function RoleList() {
 
   // ... rest of the component remains the same ...
 }
+function useSearchHistory(): { history: any; addToHistory: any; removeFromHistory: any; clearHistory: any } {
+  const [history, setHistory] = useState<string[]>([])
+
+  const addToHistory = (searchTerm: string) => {
+    setHistory(prevHistory => [...prevHistory, searchTerm])
+  }
+
+  const removeFromHistory = (searchTerm: string) => {
+    setHistory(prevHistory => prevHistory.filter(term => term !== searchTerm))
+  }
+
+  const clearHistory = () => {
+    setHistory([])
+  }
+
+  return { history, addToHistory, removeFromHistory, clearHistory }
+}
+

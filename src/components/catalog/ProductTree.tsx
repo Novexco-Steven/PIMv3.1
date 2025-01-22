@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { ChevronDown, ChevronRight, Package, Search } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
@@ -17,11 +17,7 @@ interface Product {
   image_url?: string
 }
 
-interface ProductTreeProps {
-  onProductDrop: (product: Product) => void
-}
-
-export function ProductTree({ onProductDrop }: ProductTreeProps) {
+export function ProductTree() {
   const [categories, setCategories] = useState<Category[]>([])
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
   const [searchTerm, setSearchTerm] = useState('')

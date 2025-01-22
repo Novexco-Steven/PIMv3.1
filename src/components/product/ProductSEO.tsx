@@ -1,4 +1,3 @@
-import React from 'react'
 import { Plus, Trash2, Edit } from 'lucide-react'
 
 interface SEO {

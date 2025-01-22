@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Bookmark, Plus, Trash2 } from 'lucide-react'
 
 interface SavedFilter {
   id: string
   name: string
-  filters: Record<string, any>
+  filters: Record<string, string | number | boolean>
 }
 
 interface SavedFiltersProps {
   savedFilters: SavedFilter[]
-  onApplyFilter: (filters: Record<string, any>) => void
-  onSaveFilter: (name: string, filters: Record<string, any>) => void
+  onApplyFilter: (filters: Record<string, string | number | boolean>) => void
+  onSaveFilter: (name: string, filters: Record<string, string | number | boolean>) => void
   onDeleteFilter: (id: string) => void
-  currentFilters: Record<string, any>
+  currentFilters: Record<string, string | number | boolean>
 }
 
 export function SavedFilters({

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FileDown } from 'lucide-react'
-import { jsPDF } from 'jspdf'
-import 'jspdf-autotable'
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 
 interface Section {
   id: string
@@ -13,6 +13,8 @@ interface Page {
   id: string
   pageNumber: number
   section_id: string | null
+  columnCount: number
+  rowCount: number
   cells: Cell[]
   category?: {
     name: string
@@ -28,6 +30,10 @@ interface Cell {
     price?: number
   }
   customContent?: string
+  columnIndex: number
+  rowIndex: number
+  columnSpan: number
+  rowSpan: number
 }
 
 interface PDFExportProps {
@@ -94,12 +100,12 @@ export function PDFExport({ catalogName, sections, pages, onExport }: PDFExportP
         pageNumbers.join(', ')
       ])
       
-      doc.autoTable({
-        startY: 30,
+      autoTable(doc, {
         head: [['Category', 'Pages']],
         body: categoryData,
         styles: { fontSize: 12 },
-        headStyles: { fillColor: [63, 81, 181] }
+        headStyles: { fillColor: [63, 81, 181] },
+        startY: 30
       })
       
       // Product Index
@@ -117,7 +123,7 @@ export function PDFExport({ catalogName, sections, pages, onExport }: PDFExportP
           ])
       )
       
-      doc.autoTable({
+      autoTable(doc, {
         startY: 30,
         head: [['Product', 'SKU', 'Page']],
         body: productData,
@@ -126,7 +132,7 @@ export function PDFExport({ catalogName, sections, pages, onExport }: PDFExportP
       })
       
       // Content Pages
-      pages.forEach((page, index) => {
+      pages.forEach((page) => {
         doc.addPage()
         
         // Header

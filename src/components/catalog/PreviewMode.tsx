@@ -224,8 +224,8 @@ export function PreviewMode({ pages, currentPage, onClose }: PreviewModeProps) {
                             src={cell.product.image_url}
                             alt={cell.product.name}
                             className="w-full h-full object-cover rounded-lg"
-                            onLoad={() => handleImageLoad(cell.product.id)}
-                            onError={() => handleImageError(cell.product.id)}
+                            onLoad={() => cell.product && handleImageLoad(cell.product.id)}
+                            onError={() => cell.product && handleImageError(cell.product.id)}
                           />
                         </div>
                       )}

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Plus, Truck, Edit, Trash2 } from 'lucide-react'
 import { Supplier } from '../../types/product'
 

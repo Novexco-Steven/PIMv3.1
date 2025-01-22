@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React from 'react';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { Plus, GripVertical, Edit, Trash2 } from 'lucide-react';
 
 interface Section {
@@ -25,7 +25,7 @@ export function SectionManager({
   onDeleteSection,
   onReorderSections,
 }: SectionManagerProps) {
-  const handleDragEnd = (result: any) => {
+  const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 
     const items = Array.from(sections);

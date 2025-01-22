@@ -1,16 +1,15 @@
-import React from 'react'
 import { History, X } from 'lucide-react'
 
 interface SearchHistoryItem {
   id: string
   query: string
-  filters: Record<string, any>
+  filters: Record<string, string | number | boolean>
   timestamp: Date
 }
 
 interface SearchHistoryProps {
   history: SearchHistoryItem[]
-  onApplySearch: (query: string, filters: Record<string, any>) => void
+  onApplySearch: (query: string, filters: Record<string, string | number | boolean>) => void
   onClearHistory: () => void
   onRemoveHistoryItem: (id: string) => void
 }

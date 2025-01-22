@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   History,
   Search,
-  ArrowUpDown,
   Users,
   Clock,
   AlertTriangle,
@@ -26,7 +25,7 @@ export function AuditTrail({ resourceType, resourceId }: AuditTrailProps) {
   const [logs, setLogs] = useState<UserActivityLog[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
-  const [filters, setFilters] = useState<Record<string, any>>({})
+  const [filters, setFilters] = useState<{ action?: string; dateRange?: { from?: string; to?: string } }>({})
   const [expandedLogs, setExpandedLogs] = useState<Set<string>>(new Set())
   const { history, addToHistory, removeFromHistory, clearHistory } = useSearchHistory()
   const { savedFilters, saveFilter, deleteFilter } = useSavedFilters()
@@ -64,9 +63,9 @@ export function AuditTrail({ resourceType, resourceId }: AuditTrailProps) {
             ip_address,
             user_agent,
             created_at,
-            user:auth.users!user_id (
+            user:auth.users (
               email,
-              profile:user_profiles!inner(
+              profile:user_profiles (
                 first_name,
                 last_name
               )

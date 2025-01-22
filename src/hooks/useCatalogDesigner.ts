@@ -27,7 +27,7 @@ interface Cell {
 export function useCatalogDesigner(catalogId: string) {
   const [pages, setPages] = useState<Page[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const { optimisticData, error, updateOptimistically } =
+  const { error, updateOptimistically } =
     useOptimisticUpdate<Page[]>();
 
   const addPage = async () => {

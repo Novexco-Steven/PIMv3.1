@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Search, ChevronRight, ChevronLeft } from 'lucide-react'
 
 interface Item {
@@ -7,6 +7,7 @@ interface Item {
   parentId?: string | null
   type: 'category' | 'product'
   sku?: string
+  children: Item[]
 }
 
 interface DualListSelectorProps {
@@ -29,8 +30,8 @@ export function DualListSelector({
 
   // Build hierarchical structure
   const buildHierarchy = (items: Item[]) => {
-    const itemMap = new Map<string, Item & { children: (Item & { children: any[] })[] }>()
-    const rootItems: (Item & { children: any[] })[] = []
+    const itemMap = new Map<string, Item & { children: (Item & { children: Item[] })[] }>()
+    const rootItems: (Item & { children: (Item & { children: Item[] })[] })[] = []
 
     // First pass: Create map of all items
     items.forEach(item => {
@@ -50,7 +51,7 @@ export function DualListSelector({
     return rootItems
   }
 
-  const renderItem = (item: Item & { children: any[] }, selected: boolean) => {
+  const renderItem = (item: Item & { children: (Item & { children: Item[] })[] }, selected: boolean) => {
     const isCategory = item.type === 'category'
     const hasChildren = item.children.length > 0
     const isSelectable = onlyCategories ? isCategory : !isCategory

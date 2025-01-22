@@ -1,33 +1,37 @@
-import React, { useState, useEffect } from 'react'
-import { Trash2, Edit } from 'lucide-react'
-import { EditCustomContentDialog } from '../dialogs/EditCustomContentDialog'
+import React, { useState, useEffect } from 'react';
+import { Trash2, Edit } from 'lucide-react';
+import { EditCustomContentDialog } from '../dialogs/EditCustomContentDialog';
 
 interface Cell {
-  id: string
-  rowIndex: number
-  columnIndex: number
-  rowSpan: number
-  columnSpan: number
-  height?: number
-  width?: number
-  contentType: 'Product' | 'Custom'
-  productId?: string
-  customContent?: string
+  id: string;
+  rowIndex: number;
+  columnIndex: number;
+  rowSpan: number;
+  columnSpan: number;
+  height?: number;
+  width?: number;
+  contentType: 'Product' | 'Custom';
+  productId?: string;
+  customContent?: string;
 }
 
 interface CellPropertiesPanelProps {
-  cell: Cell | null
-  onUpdate: (cell: Cell) => void
-  onDelete: () => void
+  cell: Cell | null;
+  onUpdate: (cell: Cell) => void;
+  onDelete: () => void;
 }
 
-export function CellPropertiesPanel({ cell, onUpdate, onDelete }: CellPropertiesPanelProps) {
-  const [formData, setFormData] = useState<Cell | null>(null)
-  const [showEditor, setShowEditor] = useState(false)
+export function CellPropertiesPanel({
+  cell,
+  onUpdate,
+  onDelete,
+}: CellPropertiesPanelProps) {
+  const [formData, setFormData] = useState<Cell | null>(null);
+  const [showEditor, setShowEditor] = useState(false);
 
   useEffect(() => {
-    setFormData(cell)
-  }, [cell])
+    setFormData(cell);
+  }, [cell]);
 
   if (!cell || !formData) {
     return (
@@ -36,20 +40,20 @@ export function CellPropertiesPanel({ cell, onUpdate, onDelete }: CellProperties
           Select a cell to edit its properties
         </p>
       </div>
-    )
+    );
   }
 
-  const handleChange = (field: keyof Cell, value: any) => {
-    const updatedCell = { ...formData, [field]: value }
-    setFormData(updatedCell)
-    onUpdate(updatedCell)
-  }
+  const handleChange = (field: keyof Cell, value: string | number | undefined) => {
+    const updatedCell = { ...formData, [field]: value };
+    setFormData(updatedCell);
+    onUpdate(updatedCell);
+  };
 
   const handleSaveContent = (content: string) => {
-    const updatedCell = { ...formData, customContent: content }
-    setFormData(updatedCell)
-    onUpdate(updatedCell)
-  }
+    const updatedCell = { ...formData, customContent: content };
+    setFormData(updatedCell);
+    onUpdate(updatedCell);
+  };
 
   return (
     <>
@@ -195,5 +199,5 @@ export function CellPropertiesPanel({ cell, onUpdate, onDelete }: CellProperties
         initialContent={formData.customContent}
       />
     </>
-  )
+  );
 }

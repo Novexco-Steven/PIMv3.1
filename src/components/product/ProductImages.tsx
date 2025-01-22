@@ -1,6 +1,5 @@
-import React from 'react'
 import { Plus, Star, StarOff, X } from 'lucide-react'
-import { Asset, AssetFormData } from '../../types/product'
+import { Asset } from '../../types/product'
 
 interface ProductImagesProps {
   assets: Asset[]

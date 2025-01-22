@@ -1,4 +1,5 @@
-// Previous imports remain the same...
+import React, { useState, useEffect } from 'react'
+import { supabase } from '../../lib/supabase'
 
 interface PaginationState {
   page: number

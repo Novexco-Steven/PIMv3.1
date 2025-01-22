@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Plus, Minus, Save } from 'lucide-react';
+import { Grid, Plus, Minus } from 'lucide-react';
 import { CellPropertiesPanel } from './CellPropertiesPanel';
 
 interface Cell {
